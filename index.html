@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO TAGS (Hidden, but Google sees them) -->
+    <title>Urdu YouTube Thumbnail Maker | Free Online Tool</title>
+    <meta name="description" content="Create professional Urdu YouTube thumbnails online for free. Features Jameel Noori Nastaleeq fonts. Download HD 1280x720 images.">
+    <meta name="keywords" content="Urdu thumbnail maker, YouTube thumbnail generator Urdu, Jameel Noori Nastaleeq online, write Urdu on photos">
+    
+    <!-- HTML2Canvas Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <style>
+        /* ========================================= */
+        /* 1. FONT LOADING (Local Folder)            */
+        /* ========================================= */
+        @font-face { font-family: 'Jameel Noori Nastaleeq'; src: url('fonts/JameelNoori.ttf') format('truetype'); }
+        @font-face { font-family: 'Nafees Nastaleeq'; src: url('fonts/Nafees.ttf') format('truetype'); }
+        @font-face { font-family: 'Alvi Nastaleeq'; src: url('fonts/Alvi.ttf') format('truetype'); }
+        @font-face { font-family: 'Mehr Nastaleeq'; src: url('fonts/Mehr.ttf') format('truetype'); }
+        @font-face { font-family: 'Standard Urdu'; src: local('Arial'); }
+
+        /* ========================================= */
+        /* 2. OLD LAYOUT STYLING (Restored)          */
+        /* ========================================= */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #2c3e50; /* The dark blue-grey you liked */
+            color: white;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 { margin-bottom: 20px; color: #f1c40f; }
+
+        .app-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        /* --- Sidebar Controls --- */
+        .controls {
+            background: #34495e; /* Original sidebar color */
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            height: fit-content;
+        }
+
+        .control-group { margin-bottom: 15px; }
+        .control-group label { display: block; margin-bottom: 5px; font-size: 0.9rem; color: #ecf0f1; }
+        
+        input[type="text"], textarea, select, input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: none;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+        
+        textarea { resize: vertical; height: 80px; direction: rtl; font-size: 16px; }
+        input[type="color"] { width: 100%; height: 40px; cursor: pointer; border: none; }
+
+        .btn-download {
+            background-color: #e74c3c; /* Original Red Button */
+            color: white;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 20px;
+        }
+        .btn-download:hover { background-color: #c0392b; }
+
+        /* --- Preview Wrapper --- */
+        .preview-wrapper {
+            width: 100%;
+            max-width: 800px;
+            overflow: auto;
+            border: 2px solid #ecf0f1;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            background: #000;
+        }
+
+        /* --- The 1280x720 Canvas --- */
+        #thumbnail-canvas {
+            width: 1280px;
+            height: 720px;
+            background-color: #111;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            
+            /* FIX: Ensures the full picture is forced into the box (stretched if needed) */
+            background-size: 100% 100%; 
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* --- Text Styling (With Fixes) --- */
+        .thumb-text {
+            direction: rtl;
+            line-height: 1.4;
+            white-space: pre-wrap;
+            z-index: 10;
+            position: relative;
+            
+            /* FIX: Keep text inside the box */
+            max-width: 90%;       /* Leaves some margin on sides */
+            word-wrap: break-word; /* Forces long words to break */
+            overflow-wrap: break-word;
+            
+            padding: 10px;
+            text-shadow: 2px 2px 0px #000; /* Default shadow fallback */
+        }
+        
+        .overlay-dim {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.3);
+            z-index: 1;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Urdu YouTube Thumbnail Maker</h1>
+
+    <div class="app-container">
+        <!-- CONTROLS -->
+        <div class="controls">
+            <h3>1. Content</h3>
+            <div class="control-group">
+                <label>Main Text (Urdu):</label>
+                <textarea id="mainText" placeholder="یہاں لکھیں..." oninput="updatePreview()">یوٹیوب تھمب نیل</textarea>
+            </div>
+            
+            <div class="control-group">
+                <label>Font Family:</label>
+                <select id="fontSelect" onchange="updatePreview()">
+                    <option value="'Jameel Noori Nastaleeq'">Jameel Noori Nastaleeq</option>
+                    <option value="'Nafees Nastaleeq'">Nafees Nastaleeq</option>
+                    <option value="'Alvi Nastaleeq'">Alvi Nastaleeq</option>
+                    <option value="'Mehr Nastaleeq'">Mehr Nastaleeq</option>
+                    <option value="'Standard Urdu', Arial">System/Standard</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label>Font Size (px):</label>
+                <input type="range" id="fontSize" min="40" max="300" value="120" oninput="updatePreview()">
+            </div>
+
+            <div class="control-group">
+                <label>Text Color:</label>
+                <input type="color" id="textColor" value="#ffff00" oninput="updatePreview()">
+            </div>
+            
+            <!-- Added Stroke Controls based on your previous interest -->
+            <div class="control-group">
+                <label>Outline Color:</label>
+                <input type="color" id="strokeColor" value="#000000" oninput="updatePreview()">
+            </div>
+             <div class="control-group">
+                <label>Outline Width:</label>
+                <input type="range" id="strokeWidth" min="0" max="10" value="0" oninput="updatePreview()">
+            </div>
+
+            <hr>
+
+            <h3>2. Background</h3>
+            <div class="control-group">
+                <label>Background Color:</label>
+                <input type="color" id="bgColor" value="#282828" oninput="updatePreview()">
+            </div>
+
+            <div class="control-group">
+                <label>Upload Image:</label>
+                <input type="file" id="bgImageFile" accept="image/*" onchange="handleImageUpload(this)">
+            </div>
+            
+            <div class="control-group">
+                <label>Darken Background:</label>
+                <input type="range" id="dimmer" min="0" max="0.9" step="0.1" value="0.3" oninput="updatePreview()">
+            </div>
+
+            <button class="btn-download" onclick="downloadThumbnail()">Download HD Image</button>
+        </div>
+
+        <!-- PREVIEW -->
+        <div style="flex:1; display:flex; justify-content:center; align-items:flex-start;">
+            <div class="preview-wrapper" id="previewWrapper">
+                <!-- 1280x720 Canvas -->
+                <div id="thumbnail-canvas">
+                    <div class="overlay-dim" id="dimLayer"></div>
+                    <div class="thumb-text" id="textLayer">یوٹیوب تھمب نیل</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('thumbnail-canvas');
+        const textLayer = document.getElementById('textLayer');
+        const dimLayer = document.getElementById('dimLayer');
+        
+        function updatePreview() {
+            // Text Content
+            textLayer.innerText = document.getElementById('mainText').value || " ";
+            
+            // Font Settings
+            textLayer.style.fontFamily = document.getElementById('fontSelect').value;
+            textLayer.style.fontSize = document.getElementById('fontSize').value + "px";
+            textLayer.style.color = document.getElementById('textColor').value;
+            
+            // Text Stroke
+            const strokeColor = document.getElementById('strokeColor').value;
+            const strokeWidth = document.getElementById('strokeWidth').value;
+            textLayer.style.webkitTextStroke = `${strokeWidth}px ${strokeColor}`;
+            
+            // Background Color (Only if no image)
+            if (!canvas.style.backgroundImage || canvas.style.backgroundImage === 'none') {
+                canvas.style.backgroundColor = document.getElementById('bgColor').value;
+            }
+            
+            // Dimmer
+            dimLayer.style.background = `rgba(0,0,0,${document.getElementById('dimmer').value})`;
+        }
+
+        function handleImageUpload(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // background-size: 100% 100% is set in CSS to force full fit
+                    canvas.style.backgroundImage = `url('${e.target.result}')`;
+                    canvas.dataset.hasFile = "true"; 
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        
+        // Zoom Logic (Visual Only)
+        function fitPreview() {
+            const wrapper = document.getElementById('previewWrapper');
+            const wrapperWidth = wrapper.offsetWidth;
+            const scale = wrapperWidth / 1280;
+            
+            canvas.style.transformOrigin = "top left";
+            canvas.style.transform = `scale(${scale})`;
+            
+            wrapper.style.height = (720 * scale) + "px";
+        }
+
+        window.addEventListener('resize', fitPreview);
+        setTimeout(fitPreview, 100);
+        updatePreview();
+
+        function downloadThumbnail() {
+            const btn = document.querySelector('.btn-download');
+            btn.innerText = "Generating...";
+            
+            const currentTransform = canvas.style.transform;
+            canvas.style.transform = "none"; 
+            
+            html2canvas(canvas, {
+                width: 1280,
+                height: 720,
+                scale: 1, 
+                useCORS: true,
+                allowTaint: true,
+                backgroundColor: null
+            }).then(canvasOutput => {
+                canvas.style.transform = currentTransform; 
+                
+                const link = document.createElement('a');
+                link.download = 'urdu-thumbnail-1280x720.png';
+                link.href = canvasOutput.toDataURL("image/png");
+                link.click();
+                
+                btn.innerText = "Download HD Image";
+            }).catch(err => {
+                alert("Error: " + err);
+                canvas.style.transform = currentTransform;
+                btn.innerText = "Download HD Image";
+            });
+        }
+    </script>
+</body>
+</html>

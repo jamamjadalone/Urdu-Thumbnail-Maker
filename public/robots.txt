@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://github.com/jamamjadalone/Urdu-Thumbnail-Maker/sitemap.xml
+
+Crawl-delay: 1

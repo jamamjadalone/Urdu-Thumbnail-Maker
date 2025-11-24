@@ -1,0 +1,27 @@
+{
+  "name": "urdu-thumbnail-maker",
+  "version": "1.0.0",
+  "description": "Free professional YouTube thumbnail maker with native Urdu text support",
+  "author": "jamamjadalone",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jamamjadalone/Urdu-Thumbnail-Maker.git"
+  },
+  "homepage": "https://github.com/jamamjadalone/Urdu-Thumbnail-Maker",
+  "keywords": [
+    "urdu",
+    "thumbnail",
+    "youtube",
+    "thumbnail-maker",
+    "youtube-thumbnail",
+    "urdu-text",
+    "nastaleeq",
+    "free",
+    "online",
+    "generator"
+  ],
+  "scripts": {
+    "start": "python -m http.server 8000"
+  }
+}
