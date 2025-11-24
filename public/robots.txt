@@ -1,6 +1,40 @@
+# Robots.txt for Urdu YouTube Thumbnail Maker
+# https://www.robotstxt.org/robotstxt.html
+
+# Allow all search engines to crawl this site
 User-agent: *
 Allow: /
+Allow: /index.html
+Allow: /public/
+Allow: /fonts/
+Allow: /docs/
 
-Sitemap: https://github.com/jamamjadalone/Urdu-Thumbnail-Maker/sitemap.xml
+# Disallow private/internal pages
+Disallow: /private/
+Disallow: /.github/
 
+# Crawl-delay to be respectful to server resources
 Crawl-delay: 1
+
+# Specific rules for Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Specific rules for Bing
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Block bad bots
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+# Sitemap location
+Sitemap: https://jamamjadalone.github.io/Urdu-Thumbnail-Maker/sitemap.xml

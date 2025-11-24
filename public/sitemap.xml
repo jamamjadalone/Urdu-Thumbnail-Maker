@@ -1,9 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0">
+  
+  <!-- Main page -->
+  <url>
+    <loc>https://jamamjadalone.github.io/Urdu-Thumbnail-Maker/</loc>
+    <lastmod>2025-11-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://jamamjadalone.github.io/Urdu-Thumbnail-Maker/public/og-image.png</image:loc>
+      <image:title>Urdu YouTube Thumbnail Maker</image:title>
+    </image:image>
+  </url>
+
+  <!-- Documentation pages -->
   <url>
     <loc>https://github.com/jamamjadalone/Urdu-Thumbnail-Maker</loc>
     <lastmod>2025-11-25</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
+    <priority>0.8</priority>
   </url>
+
+  <url>
+    <loc>https://github.com/jamamjadalone/Urdu-Thumbnail-Maker/blob/main/docs/SETUP.md</loc>
+    <lastmod>2025-11-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://github.com/jamamjadalone/Urdu-Thumbnail-Maker/blob/main/docs/FAQ.md</loc>
+    <lastmod>2025-11-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://github.com/jamamjadalone/Urdu-Thumbnail-Maker/blob/main/docs/TROUBLESHOOTING.md</loc>
+    <lastmod>2025-11-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>
