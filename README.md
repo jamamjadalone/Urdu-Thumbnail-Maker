@@ -95,7 +95,7 @@ We welcome contributions!
 - **[Setup Guide](docs/SETUP.md)** - Installation instructions
 - **[FAQ](docs/FAQ.md)** - Common questions
 - **[Troubleshooting](docs/TROUBLESHOOTING.md)** - Help & fixes
-- **[Deployment](DEPLOY.md)** - Production guide
+- **[Deployment](docs/DEPLOY.md)** - Production guide
 
 ## 🐛 Report Issues
 
