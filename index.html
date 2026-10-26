@@ -151,12 +151,12 @@
         <div class="controls">
             <h3>1. Content</h3>
             <div class="control-group">
-                <label>Main Text (Urdu):</label>
+                <label for="mainText">Main Text (Urdu):</label>
                 <textarea id="mainText" placeholder="یہاں لکھیں..." oninput="updatePreview()">یوٹیوب تھمب نیل</textarea>
             </div>
             
             <div class="control-group">
-                <label>Font Family:</label>
+                <label for="fontSelect">Font Family:</label>
                 <select id="fontSelect" onchange="updatePreview()">
                     <option value="'Jameel Noori Nastaleeq'">Jameel Noori Nastaleeq</option>
                     <option value="'Nafees Nastaleeq'">Nafees Nastaleeq</option>
@@ -167,22 +167,22 @@
             </div>
 
             <div class="control-group">
-                <label>Font Size (px):</label>
+                <label for="fontSize">Font Size (px):</label>
                 <input type="range" id="fontSize" min="40" max="300" value="120" oninput="updatePreview()">
             </div>
 
             <div class="control-group">
-                <label>Text Color:</label>
+                <label for="textColor">Text Color:</label>
                 <input type="color" id="textColor" value="#ffff00" oninput="updatePreview()">
             </div>
             
             <!-- Added Stroke Controls based on your previous interest -->
             <div class="control-group">
-                <label>Outline Color:</label>
+                <label for="strokeColor">Outline Color:</label>
                 <input type="color" id="strokeColor" value="#000000" oninput="updatePreview()">
             </div>
              <div class="control-group">
-                <label>Outline Width:</label>
+                <label for="strokeWidth">Outline Width:</label>
                 <input type="range" id="strokeWidth" min="0" max="10" value="0" oninput="updatePreview()">
             </div>
 
@@ -190,21 +190,21 @@
 
             <h3>2. Background</h3>
             <div class="control-group">
-                <label>Background Color:</label>
+                <label for="bgColor">Background Color:</label>
                 <input type="color" id="bgColor" value="#282828" oninput="updatePreview()">
             </div>
 
             <div class="control-group">
-                <label>Upload Image:</label>
+                <label for="bgImageFile">Upload Image:</label>
                 <input type="file" id="bgImageFile" accept="image/*" onchange="handleImageUpload(this)">
             </div>
             
             <div class="control-group">
-                <label>Darken Background:</label>
+                <label for="dimmer">Darken Background:</label>
                 <input type="range" id="dimmer" min="0" max="0.9" step="0.1" value="0.3" oninput="updatePreview()">
             </div>
 
-            <button class="btn-download" onclick="downloadThumbnail()">Download HD Image</button>
+            <button type="button" class="btn-download" onclick="downloadThumbnail()">Download HD Image</button>
         </div>
 
         <!-- PREVIEW -->
